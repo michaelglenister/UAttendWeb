@@ -1,0 +1,67 @@
+﻿body {
+
+ }
+
+th:hover{
+    cursor: pointer;
+}
+
+.btnlogin {
+    padding: 6px 44px;
+}
+
+.btnHome {
+    border-radius: 8px;
+}
+
+.mandatory-field {
+    color:red;
+    font-size:16px;
+    font-weight: bold;
+}
+
+.register {
+    /*width: 100%;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .register td {
+        padding: 4px;
+    }
+
+    .register .column1 {
+        /*width:45%;*/
+        text-align:left;
+    }
+
+    .register .column2 {
+        /*width: 55%;*/
+        text-align:left;
+    }
+
+    .register .btnColumn {
+        text-align:right;
+    }
+
+    .register .validatorColumn {
+        text-align:center;
+    }
+
+.required-field {
+    border: 1px solid red;
+}
+
+
+
+.table-spacing {
+    width: 100%;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.confirmTable td {
+    padding:10px;
+}
