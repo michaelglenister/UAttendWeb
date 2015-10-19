@@ -73,6 +73,7 @@ namespace DAL
                     rollCall.TimeOfRollCall = row["TimeOfRollCall"].ToString();
                     rollCall.ModuleID = Convert.ToInt32(row["ModuleID"]);
                     rollCall.Status = row["Status"].ToString();
+                    rollCall.AutoDisable = row["AutoDisable"].ToString();
                 }
             }
             return rollCall;
@@ -100,6 +101,7 @@ namespace DAL
                         rollCall.TimeOfRollCall = row["TimeOfRollCall"].ToString();
                         rollCall.ModuleID = Convert.ToInt32(row["ModuleID"]);
                         rollCall.Status = row["Status"].ToString();
+                        rollCall.AutoDisable = row["AutoDisable"].ToString();
 
                         listRollCalls.Add(rollCall);
 
@@ -107,6 +109,17 @@ namespace DAL
                 }
             }
             return listRollCalls;
+        }
+
+        public int SetAutoDisable(int rollCallID, string dateTime)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@RollCallID", rollCallID),
+                new SqlParameter("@AutoDisable", dateTime)
+            };
+
+            return DBHelper.ExecuteNonQueryGetLastID("sp_SetAutoDisable", CommandType.StoredProcedure, parameters);
         }
     }
 }

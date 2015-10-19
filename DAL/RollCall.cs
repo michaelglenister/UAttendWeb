@@ -12,5 +12,6 @@ namespace DAL
         public string TimeOfRollCall { get; set; }
         public int ModuleID { get; set; }
         public string Status { get; set; }//enabled, disabled
+        public string AutoDisable { get; set; }
     }
 }

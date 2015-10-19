@@ -12,6 +12,7 @@ using MessagingToolkit.QRCode.Codec;
 
 using DAL;
 using BLL;
+using System.Globalization;
 
 namespace WebApp
 {
@@ -23,7 +24,7 @@ namespace WebApp
         {
             int lecturerID = Convert.ToInt32(Session["LecturerID"]);
             ModuleHandler moduleHandler = new ModuleHandler();
-
+            //litAutoDisable.Text = "<input id='txtTime' runat='server' class='form - control required - field' placeholder='Minutes' type='time' required='required'/> <input id = 'txtDate' runat = 'server' class='form - control required - field' placeholder='Date' type='date' required='required'/><br /><br />";
             if (!Page.IsPostBack)
             {
                 dlModules.DataSource = moduleHandler.GetModuleList(lecturerID);
@@ -54,13 +55,19 @@ namespace WebApp
             QRcode.ImageUrl = "~/temp/" + encodeQR + ".jpg";
 
             litPin.Text = "<div class='alert alert-info'>Pin: " + rollCallID + "</div>";
-            litHeadSpace.Text = "";
             //change interface to suite active roll call session
             btnBeginRollCall.Visible = false;
             dlModules.Visible = false;
 
+            //litAutoDisable.Visible = true;
+            txtTime.Visible = true;
+            txtDate.Visible = true;
+            btnAutoDisable.Visible = true;
+
             btnPauseRollCall.Visible = true;
             btnEndRollCall.Visible = true;
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "makeVisible()", true);
         }
 
         protected void btnPauseRollCall_Click(object sender, EventArgs e)
@@ -89,10 +96,21 @@ namespace WebApp
         protected void btnEndRollCall_Click(object sender, EventArgs e)
         {
             RollCallHandler rollCallHandler = new RollCallHandler();
-
             rollCallHandler.EndRollCall(rollCallID);
-
             Response.Redirect("rollcallSession.aspx");
+        }
+
+        protected void btnAutoDisable_Click(object sender, EventArgs e)
+        {
+            string time = txtTime.Value + ":00";
+            string date = txtDate.Value;
+            DateTime dateTime = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+
+            //litPin.Text += " " + dateTime.ToString();
+
+            //create database entry with dateTime
+            RollCallHandler rollCallHandler = new RollCallHandler();
+            rollCallHandler.SetAutoDisable(rollCallID, dateTime.ToString());
         }
     }
 }

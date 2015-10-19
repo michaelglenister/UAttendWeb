@@ -111,6 +111,7 @@
     <Content Include="resources\background.jpg" />
     <None Include="Properties\PublishProfiles\UAttend.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="rollcallHistory.aspx" />
     <Content Include="RollCallSession.aspx" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -119,6 +120,7 @@
     <Content Include="StudentAverage.aspx" />
     <Content Include="StudentDetail.aspx" />
     <Content Include="SubjectAverage.aspx" />
+    <Content Include="ToggleRollCall.aspx" />
     <Content Include="UpdateProfile.aspx" />
     <Content Include="ViewStudents.aspx" />
     <Content Include="Web.config">
@@ -221,6 +223,7 @@
     <Compile Include="Modules.aspx.designer.cs">
       <DependentUpon>Modules.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NfcController.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,6 +245,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="rollcallHistory.aspx.cs">
+      <DependentUpon>rollcallHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rollcallHistory.aspx.designer.cs">
+      <DependentUpon>rollcallHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="RollCallSession.aspx.cs">
       <DependentUpon>RollCallSession.aspx</DependentUpon>
@@ -277,6 +287,13 @@
     </Compile>
     <Compile Include="SubjectAverage.aspx.designer.cs">
       <DependentUpon>SubjectAverage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ToggleRollCall.aspx.cs">
+      <DependentUpon>ToggleRollCall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ToggleRollCall.aspx.designer.cs">
+      <DependentUpon>ToggleRollCall.aspx</DependentUpon>
     </Compile>
     <Compile Include="UpdateProfile.aspx.cs">
       <DependentUpon>UpdateProfile.aspx</DependentUpon>

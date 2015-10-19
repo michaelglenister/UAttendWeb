@@ -31,7 +31,7 @@ namespace WebApp
 
         protected void btnGetReport_Click(object sender, EventArgs e)
         {
-            string htmlOutput = "<tr><th>Date</th><th>Status</th></tr>";
+            string htmlOutput = "<thead><tr><th>Date <i class='fa fa-sort'></i></th><th>Status <i class='fa fa-sort'></i></th></tr></thead>";
             litReport.Text = "";
             //for each roll call held show status of selected student
 
@@ -42,29 +42,35 @@ namespace WebApp
             //get a students attendance for each of the found roll calls
             Student_RollCall student_RollCall = new Student_RollCall();
             Student_RollCallHandler student_RollCallHandler = new Student_RollCallHandler();
-            
-            foreach (RollCall r in listRollCalls)
+            try
             {
-                student_RollCall = student_RollCallHandler.GetStudentAttendance(r.RollCallID, Convert.ToInt32(dlStudents.SelectedValue));
 
-                try
+                foreach (RollCall r in listRollCalls)
                 {
+                    student_RollCall = student_RollCallHandler.GetStudentAttendance(r.RollCallID, Convert.ToInt32(dlStudents.SelectedValue));
 
-                    litReport.Text += student_RollCall.Status + "<br/>";
-                    DateTime date = Convert.ToDateTime(r.TimeOfRollCall);
-                    htmlOutput +=  "<tr><td>" + date.ToString("MM/dd/yyyy HH:mm tt") + "</td><td>" + student_RollCall.Status + "</td></tr>\n";
+                    try
+                    {
+
+                        litReport.Text += student_RollCall.Status + "<br/>";
+                        DateTime date = Convert.ToDateTime(r.TimeOfRollCall);
+                        htmlOutput += "<tr><td>" + date.ToString("MM/dd/yyyy HH:mm tt") + "</td><td>" + student_RollCall.Status + "</td></tr>\n";
+                    }
+                    catch (NullReferenceException)
+                    {
+                        litReport.Text += "Absent<br/>";
+                        DateTime date = Convert.ToDateTime(r.TimeOfRollCall);
+                        htmlOutput += "<tr><td>" + date.ToString("MM/dd/yyyy HH:mm tt") + "</td><td>absent</td></tr>\n";
+                    }
                 }
-                catch (NullReferenceException ex)
-                {
-                    litReport.Text += "Absent<br/>";
-                    DateTime date = Convert.ToDateTime(r.TimeOfRollCall);
-                    htmlOutput += "<tr><td>" + date.ToString("MM/dd/yyyy HH:mm tt") + "</td><td>absent</td></tr>\n";
-                }
+
+                Student student = new Student();
+                StudentHandler studentHandler = new StudentHandler();
             }
-
-            Student student = new Student();
-            StudentHandler studentHandler = new StudentHandler();
-
+            catch
+            {
+                htmlOutput = "<div class='alert alert-danger'>No records found</div>";
+            }
             litReport.Text = htmlOutput;
 
 

@@ -11,22 +11,22 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string welcomeMessage = "";
+            /*string welcomeMessage = "";
 
             if ((string)Request.QueryString["logout"] == "1")
             {
                 welcomeMessage = "You have been logged out successfully<br /><br />";
             }
-            /*if (Session["FirstName"] != null && Session["Surname"] != null)
+            if (Session["FirstName"] != null && Session["Surname"] != null)
             {
                 Response.Redirect("Dashboard.aspx");
                 welcomeMessage = "Welcome to EASiBOOK,  " + Session["FirstName"] + " " + Session["Surname"] + "!<br /><br />";
                 lblWelcome.Text = welcomeMessage;
-            }*/
+            }
             else
             {
                 welcomeMessage = "Welcome to UAttend<br/><br/>Class attendance tracker<br/><br/>Please login or register to use this website<br /><br />";
-            }
+            }*/
 
         }
 

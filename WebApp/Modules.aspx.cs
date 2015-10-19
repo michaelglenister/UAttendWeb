@@ -36,7 +36,7 @@ namespace WebApp
                 litAlert.Text = "<div class='alert alert-warning'>There are currently no modules enabled on the system</div>";
             else
             {
-                htmlOutput = "<tr><th>Module code</th><th>Start month & year</th><th>Student list</th><th>Disable module</th></tr>";
+                htmlOutput = "<thead><tr><th>Module code <i class='fa fa-sort'></i></th><th>Start month & year <i class='fa fa-sort'></i></th><th>Student list</th><th>Disable module</th></tr></thead>";
                 //add modules to table as it is generated
                 for (int i = 0; i < listModules.Count; i++)
                 {
@@ -55,7 +55,7 @@ namespace WebApp
             ModuleHandler moduleHandler = new ModuleHandler();
 
             int moduleID = 0;
-            string htmlOutput = "<tr><th>Module code</th><th>Student list</th><th>Enable module</th></tr>";
+            string htmlOutput = "<thead><tr><th>Module code <i class='fa fa-sort'></i></th><th>Student list</th><th>Enable module</th></tr></thead>";
 
             List<Module> listModules = moduleHandler.GetDisabledModuleList(lecturerID);
 

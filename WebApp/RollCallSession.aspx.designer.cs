@@ -31,13 +31,31 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Button btnBeginRollCall;
         
         /// <summary>
-        /// litHeadSpace control.
+        /// txtTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litHeadSpace;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtTime;
+        
+        /// <summary>
+        /// txtDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtDate;
+        
+        /// <summary>
+        /// btnAutoDisable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAutoDisable;
         
         /// <summary>
         /// btnPauseRollCall control.

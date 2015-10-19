@@ -15,17 +15,25 @@ namespace WebApp
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            
+            //api/mobile/1
             RouteTable.Routes.MapHttpRoute(
-            name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}",
-            defaults: new { id = RouteParameter.Optional }
+            name: "MobileLecturer",
+            routeTemplate: "api/{controller}/{lecturer}",
+            defaults: new { lecturer = RouteParameter.Optional }
             );
 
+            //api/mobile/a@a/123
             RouteTable.Routes.MapHttpRoute(
             name: "MobileLogin",
             routeTemplate: "api/{controller}/{email}/{password}",
             defaults: new { email = RouteParameter.Optional, password = RouteParameter.Optional }
+            );
+
+            //nfc/nfc/1
+            RouteTable.Routes.MapHttpRoute(
+            name: "NfcModules",
+            routeTemplate: "nfc/{controller}/{module}",
+            defaults: new { module = RouteParameter.Optional }
             );
 
         }

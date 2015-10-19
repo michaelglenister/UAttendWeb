@@ -35,6 +35,7 @@
             <li><a href="dashboard.aspx"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="modules.aspx"><i class="fa fa-book"></i> Modules</a></li>
             <li><a href="rollcallSession.aspx"><i class="fa fa-qrcode"></i> Roll Call</a></li>
+            <li><a href="rollcallHistory.aspx"><i class="fa fa-tasks"></i> Roll Call History</a></li>
             <li><a href="attendance.aspx"><i class="fa fa-bar-chart-o"></i> Attendance</a></li>
             <li><a href="profile.aspx"><i class="fa fa-gear"></i> Profile</a></li>
             <li><a href="logout.aspx"><i class="fa fa-sign-out"></i> Logout</a></li>

@@ -43,72 +43,79 @@ namespace WebApp
             List<Student> listStudents = studentHandler.GetStudentList(Convert.ToInt32(dlModules.SelectedValue));
 
             litReport.Text = "";
-            string htmlOutput = "<tr><th>Student</th><th>Percent</th></tr>";
+            string htmlOutput = "<thead><tr><th>Student <i class='fa fa-sort'></i></th><th>Percent <i class='fa fa-sort'></i></th></tr></thead>";
 
-            //get list of roll calls IDs held for a module
-            List<RollCall> listRollCalls = rollCallHandler.GetRollCallList(Convert.ToInt32(dlModules.SelectedValue));
-
-            int countRollCall = 0;
-            int countStudent = 0;
-            string[,] studentData = new string[listStudents.Count, 2];
-
-            string[] student = new string[listStudents.Count] ;
-            int[] attending = new int[listRollCalls.Count];
-            int temp = 0;
-
-            for (int i = 0; i < listStudents.Count; i++)
+            try
             {
-                studentData[i, 1] = "0";
-            }
+                //get list of roll calls IDs held for a module
+                List<RollCall> listRollCalls = rollCallHandler.GetRollCallList(Convert.ToInt32(dlModules.SelectedValue));
 
-            foreach (Student s in listStudents)
-            {
-                student[countStudent] = s.FirstName + " " + s.Surname;
-                studentData[countStudent, 0] = s.FirstName + " " + s.Surname + " " + s.StudentNumber;
+                int countRollCall = 0;
+                int countStudent = 0;
+                string[,] studentData = new string[listStudents.Count, 2];
 
-                //now get this students attendance records, one for each roll call, if no record exists assume absent
-                foreach (RollCall r in listRollCalls)
-	            {
-                    student_RollCall = student_RollCallHandler.GetStudentAttendance(r.RollCallID, s.StudentID);
-                    try
+                string[] student = new string[listStudents.Count] ;
+                int[] attending = new int[listRollCalls.Count];
+                int temp = 0;
+
+                for (int i = 0; i < listStudents.Count; i++)
+                {
+                    studentData[i, 1] = "0";
+                }
+                
+                foreach (Student s in listStudents)
+                {
+                    student[countStudent] = s.FirstName + " " + s.Surname;
+                    studentData[countStudent, 0] = s.FirstName + " " + s.Surname + " " + s.StudentNumber;
+
+                    //now get this students attendance records, one for each roll call, if no record exists assume absent
+                    foreach (RollCall r in listRollCalls)
                     {
-                        litReport.Text += s.FirstName + "&nbsp" + student_RollCall.Status;
-                        
-                        attending[countRollCall] += 1;
+                        student_RollCall = student_RollCallHandler.GetStudentAttendance(r.RollCallID, s.StudentID);
+                        try
+                        {
+                            litReport.Text += s.FirstName + "&nbsp" + student_RollCall.Status;
 
-                        temp = Convert.ToInt32(studentData[countStudent, 1]);
-                        temp += 1;
-                        studentData[countStudent, 1] = temp.ToString();
+                            attending[countRollCall] += 1;
+
+                            temp = Convert.ToInt32(studentData[countStudent, 1]);
+                            temp += 1;
+                            studentData[countStudent, 1] = temp.ToString();
+                        }
+                        catch (NullReferenceException)
+                        {
+                            litReport.Text += s.FirstName + "&nbsp" + "absent";
+
+                            attending[countRollCall] += 0;
+
+                            temp = Convert.ToInt32(studentData[countStudent, 1]);
+                            temp += 0;
+                            studentData[countStudent, 1] = temp.ToString();
+                        }
+                        countRollCall++;
                     }
-                    catch (NullReferenceException ex)
-                    {
-                        litReport.Text += s.FirstName + "&nbsp" + "absent";
 
-                        attending[countRollCall] += 0;
+                    countStudent++;
+                    countRollCall = 0;
 
-                        temp = Convert.ToInt32(studentData[countStudent, 1]);
-                        temp += 0;
-                        studentData[countStudent, 1] = temp.ToString();
-                    }
-                    countRollCall++;
+                    litReport.Text += "</br></br>";
+
                 }
 
-                countStudent++;
-                countRollCall = 0;
+                litReport.Text = "";
 
-                litReport.Text += "</br></br>";
-                
+                for (int i = 0; i < listStudents.Count; i++)
+                {
+                    studentData[i, 1] = (Convert.ToDouble(studentData[i, 1]) / listRollCalls.Count * 100).ToString();
+                    studentData[i, 1] = Math.Round(Convert.ToDouble(studentData[i, 1]), 0).ToString();
+
+                    htmlOutput += "<tr><td>" + studentData[i, 0] + "</td><td>" + studentData[i, 1] + "</td></tr>\n";
+                    litReport.Text += studentData[i, 0] + " " + studentData[i, 1] + "</br>";
+                }
             }
-
-            litReport.Text = "";
-
-            for (int i = 0; i < listStudents.Count; i++)
+            catch
             {
-                studentData[i, 1] = (Convert.ToDouble(studentData[i, 1]) / listRollCalls.Count * 100).ToString();
-                studentData[i, 1] = Math.Round(Convert.ToDouble(studentData[i, 1]), 0).ToString();
-
-                htmlOutput += "<tr><td>" + studentData[i, 0] + "</td><td>" + studentData[i, 1] + "</td></tr>\n";
-                litReport.Text += studentData[i, 0] + " " + studentData[i, 1] + "</br>";
+                htmlOutput = "<div class='alert alert-danger'>No records found</div>";
             }
 
             litReport.Text = htmlOutput;

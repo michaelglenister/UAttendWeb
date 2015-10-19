@@ -46,5 +46,10 @@ namespace BLL
         {
             return rollCallDB.GetRollCallList(moduleID);
         }
+
+        public int SetAutoDisable(int rollCallID, string dateTime)
+        {
+            return rollCallDB.SetAutoDisable(rollCallID, dateTime);
+        }
     }
 }

@@ -22,8 +22,20 @@ namespace WebApp
             RollCallHandler rollCallHandler = new RollCallHandler();
             RollCall rollCall = new RollCall();
 
-
             rollCall = rollCallHandler.GetRollCallDetails(rollCallID);
+
+            //check if auto disable exists
+            if (rollCall.AutoDisable != "")
+            {
+                DateTime autoDisableDate = DateTime.Parse(rollCall.AutoDisable);
+
+                if (DateTime.Compare(autoDisableDate, DateTime.Now) < 0)
+                {
+                    //auto disabl date reached, disable roll call
+                    rollCallHandler.EndRollCall(rollCallID);
+                    rollCall.Status = "disabled";
+                }
+            }
 
             if (rollCall.Status == "enabled")
             {
